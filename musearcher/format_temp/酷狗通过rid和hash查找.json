@@ -1,0 +1,43 @@
+{
+    "status": 1,
+    "err_code": 0,
+    "data": {
+        "hash": "7C11FF0B7C63FC6E8EBD798B35ACB77C",
+        "timelength": 198870,
+        "filesize": 7956119,
+        "audio_name": "hanser - 室内系的TrackMaker",
+        "have_album": 1,
+        "album_name": "Hanser唱的歌（180924为止 hanser",
+        "album_id": "51717190",
+        "img": "http://imge.kugou.com/stdmusic/20211224/20211224000714432818.jpg",
+        "have_mv": 1,
+        "video_id": "1264043",
+        "author_name": "hanser",
+        "song_name": "室内系的TrackMaker",
+        "lyrics": "﻿[id:$00000000]\r\n[ar:hanser]\r\n[ti:室内系的TrackMaker]\r\n[by:]\r\n[hash:b5854a0b259ec84724bc76f234cec086]\r\n[al:]\r\n[sign:]\r\n[qq:]\r\n[total:0]\r\n[offset:0]\r\n[00:00.08]Hanser - 室内系的TrackMaker\r\n[00:00.66]词：ST_色太\r\n[00:00.82]曲：yunomi\r\n[00:17.33]My house is tumble\r\n[00:18.95]New house electrial house\r\n[00:20.84]高峰期的街上 堆满车子\r\n[00:22.69]长长的一队 堵塞 max\r\n[00:24.58]House dust 纷飞中\r\n[00:26.39]患上了花粉症的 muskmelon\r\n[00:28.32]Cursor等待着 klaxon\r\n[00:30.13]快来 click lyric TrackMaker\r\n[00:32.13]坐落在那地极的 fashion center\r\n[00:33.89]听着流行的歌 clap your hands up\r\n[00:35.80]球衣搭配衬衫 很奇怪啦\r\n[00:37.64]M I D I TrackMaker\r\n[00:39.61]坐落在那地极的 fashion center\r\n[00:41.41]塞着耳机听歌 clap your hands up\r\n[00:43.35]明天就稿期啦 熬夜肝吧\r\n[00:45.21]Everyday everynight TrackMaker\r\n[00:49.86]TrackMaker\r\n[00:53.63]Clap your hands up\r\n[00:57.52]TrackMaker\r\n[01:01.14]Clap your hands up\r\n[01:02.16]身旁的萝莉是 萌萌的 type\r\n[01:03.93]熟练的舞步 踩着 dubstep\r\n[01:05.75]另一位展示着 robot dance\r\n[01:07.70]她将美酒喝掉 大声喊着 nice\r\n[01:09.58]松松领带 现在就是 chance\r\n[01:11.49]黑框眼镜 配上紧身裤子\r\n[01:13.34]夜色摇晃双人 wobble base\r\n[01:15.17]今夜的故事 也是遗憾终止\r\n[01:17.09]坐落在那地极的 fashion center\r\n[01:18.93]听着流行的歌 clap your hands up\r\n[01:20.77]运动衫运动裤 户外系的吗\r\n[01:22.60]室内的话咱们就 TrackMaker\r\n[01:24.48]坐落在那地极的 fashion center\r\n[01:26.38]塞着耳机听歌 clap your hands up\r\n[01:28.28]跟梦魇斗争的 maximizer\r\n[01:30.13]困意缠绕的夜里 咖啡因投下\r\n[01:45.35]明天就要交稿了 怎么办呀\r\n[02:02.27]坐落在那地极的 fashion center\r\n[02:03.92]听着流行的歌 clap your hands up\r\n[02:05.91]球衣搭配衬衫 很奇怪啦\r\n[02:07.56]M I D I TrackMaker\r\n[02:09.53]坐落在那地极的 fashion center\r\n[02:11.37]塞着耳机听歌 clap your hands up\r\n[02:13.25]明天就稿期啦 熬夜肝吧\r\n[02:15.28]Everyday everynight TrackMaker\r\n[02:32.06]坐落在那地极的 fashion center\r\n[02:33.87]听着流行的歌 clap your hands up\r\n[02:35.77]球衣搭配衬衫 很奇怪啦\r\n[02:37.64]M I D I TrackMaker\r\n[02:39.52]坐落在那地极的 fashion center\r\n[02:41.40]塞着耳机听歌 clap your hands up\r\n[02:43.27]明天就稿期啦 熬夜肝吧\r\n[02:45.16]Everyday everynight TrackMaker\r\n[02:50.07]Fashion center\r\n[02:53.66]Clap your hands up\r\n[02:57.32]Fashion center\r\n[03:01.15]Clap your hands up\r\n",
+        "author_id": "183107",
+        "privilege": 0,
+        "privilege2": "0",
+        "play_url": "https://webfs.tx.kugou.com/202210211748/7fde9bdb7654d07f17244336be126748/v2/7c11ff0b7c63fc6e8ebd798b35acb77c/KGTX/CLTX001/7c11ff0b7c63fc6e8ebd798b35acb77c.mp3",
+        "authors": [
+            {
+                "author_id": "183107",
+                "author_name": "hanser",
+                "is_publish": "1",
+                "sizable_avatar": "http://singerimg.kugou.com/uploadpic/softhead/{size}/20200116/20200116053155994591.jpg",
+                "avatar": "http://singerimg.kugou.com/uploadpic/softhead/400/20200116/20200116053155994591.jpg"
+            }
+        ],
+        "is_free_part": 0,
+        "bitrate": 320,
+        "recommend_album_id": "51717190",
+        "store_type": "audio",
+        "album_audio_id": 203363919,
+        "is_publish": 1,
+        "audio_id": "36973510",
+        "has_privilege": true,
+        "play_backup_url": "https://webfs.hw.kugou.com/202210211748/696fc2bdfd3413bf3fa7d2372e398a73/KGTX/CLTX001/7c11ff0b7c63fc6e8ebd798b35acb77c.mp3",
+        "small_library_song": 1,
+        "encode_album_id": "ush8m3c"
+    }
+}

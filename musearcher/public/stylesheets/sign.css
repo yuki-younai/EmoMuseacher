@@ -1,0 +1,68 @@
+.sign-in-input {
+    margin: auto;
+    width: 600px;
+    height: 54px;
+}
+
+body {
+    height: auto;
+}
+
+input[type="text"] {
+    font-size: 20px;
+    border-radius: 10px;
+    border: 0px;
+    color: #252525;
+    display: block;
+    opacity: 70%;
+    outline: 0;
+    padding: 0 24px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.username {
+    margin: 300px 0 30px 0;
+    height: 50px;
+}
+ .password {
+    margin: 30px 0 30px 0;
+    height: 50px;
+ }
+
+ .sign-in  {
+    font-size: 20px;
+    border-radius: 10px;
+    border: 0px;
+    color: #252525;
+    display: block;
+    outline: 0;
+    text-decoration: none;
+    width: 20%;
+    margin:auto;
+    height: 50px;
+    border-radius: 10px !important;
+ }
+
+ .back {
+    position: absolute;
+    width: 50px;
+    height: 54px;
+    top: 0;
+    left: 37px;
+    right: 0;
+    bottom: 0;
+    margin-top: 100px;
+}
+
+.back>a>img {
+    width: 40px;
+}
+
+.back>img:hover {
+    cursor: pointer;
+}
+
+.sign-in:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,20 @@
+{
+    "code": 200,
+    "curTime": 1666341114492,
+    "data": [
+        "RELWORD=周杰伦\r\nSNUM=8339197\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周深\r\nSNUM=3684090\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周深  花开忘忧\r\nSNUM=465240\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周深  美美\r\nSNUM=158636\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周传雄\r\nSNUM=514888\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周杰伦全部歌曲\r\nSNUM=3000\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周华健\r\nSNUM=656576\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周深  最珍贵的你\r\nSNUM=182033\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周深  余情\r\nSNUM=233153\r\nRNUM=1000\r\nTYPE=0",
+        "RELWORD=周建龙\r\nSNUM=315540\r\nRNUM=1000\r\nTYPE=0"
+    ],
+    "msg": "success",
+    "profileId": "site",
+    "reqId": "fa27df24e13debcbc6bc96a830c4982b",
+    "tId": ""
+}

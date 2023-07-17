@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MuSearcher</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/search.css">
+	<link rel="stylesheet" href="../stylesheets/lyric.css">
+	<link rel="stylesheet" href="../stylesheets/star.css">
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="logo">
+				<a class="logo-item" href="/">
+					<h2>MuSearcher</h2>
+				</a>
+			</div>
+			<div class="avatar">
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
+				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+				<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+				<img class="avatar-img" src="../images/avatar-01.jpg">
+			</div>
+		</div>
+	</header>
+	<div class="star" id="star">
+		<ul class="star-ul">
+		  <li class="star-li">
+			<div class="star-li-left">
+			  <img src="../images/china.png" class="star-img">
+			  <span class="star-name">歌曲名</span>
+			</div>
+			<span class="star-artist">歌手</span>
+		  </li>
+		</ul>
+	  </div>
+	<div class="left">
+		<div><img class="lyr-img" id="main-img"></div>
+		<div class="lyr-name" id="main-name"></div>
+		<div class="lyr-artist" id="main-artist"></div>
+	</div>
+	<div class="right" >
+		<ul id="lyric" class="lyric"></ul>
+		<div></div>
+	</div>
+
+	<!-- <header1>
+		<div class="back" href="#">
+			<a href="/"><img src="../images/返回.svg"></a>
+		</div>
+	</header1> -->
+
+	<div id="search-list">
+
+	</div>
+
+
+	
+	<footer>
+		<div class="btn-audio">
+			<div class="btn-cover">
+				<img id="play-image" src="/images/cover.jpg">
+			</div>
+			<div style="margin-left:6px">
+				<div id="play-song" class="btn-name">试着搜索一下吧~</div>
+				<div id="play-singer" class="btn-singer"></div>
+			</div>
+			<div class="audio" >
+				<audio controls="controls" id="audio">
+					<source id="play-source" src="" type="audio/mp3" />
+				</audio>
+			</div>
+			<div class="footer-star" onclick="clicktostar()">收藏</div>
+		</div>
+	</footer>
+
+	<script type="text/template" id="tpl">
+		<section class="search-section">
+			<div class="search-item">
+				<img class="search-music-img" src="{{songImg}}">
+				<div class="music-detail music-detail-song"><span>{{songName}}</span></div>
+				<div class="music-play-button" id={{id}} onclick="clicktoplay(this)"><img src="/images/play.svg"></div>
+				<div class="music-detail music-detail-singer"><span>{{artist}}</span></div>
+				<div class="music-detail music-time"><span>{{songTime}}</span></div>
+			</div>
+		</section>
+	</script>
+
+	<script type="text/template" id="star-element">
+		<li class="star-li" id={{id}} onclick="clicktoplay_star(this)">
+		  <div class="star-li-left">
+			<img src="{{img}}" class="star-img">
+			<span class="star-name">{{song}}</span>
+		  </div>
+		  <span class="star-artist">{{artist}}</span>
+		</li>
+	  </script>
+
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../javascripts/alluse.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+		let music_list = [];
+		let buttons = [];
+		let play_image = $("#play_image")
+		let play_song = $("#play_song")
+		let play_singer = $("#play_singer")
+		let play_source = $("#play_source")
+		let music = $("#music");
+        let lyrics;
+		var oLRC = {
+			ti: "", //歌曲名
+			ar: "", //演唱者
+			al: "", //专辑名
+			by: "", //歌词制作人
+			offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
+			ms: [] //歌词数组{t:时间,c:歌词}
+		};
+		
+		setHeaderUsername()
+		function jumptoupload() {
+			document.location.href = "upload";
+		}
+		
+		
+
+		function updata_listen_info(song) {
+			if(localStorage.getItem("id") == undefined) {
+				var Rand = Math.random()
+                var id = Math.round(Rand * 100000000);
+				localStorage.setItem("id", id)
+				localStorage.setItem("username", "newUser")
+			}
+			let data = { //歌曲点击信息传入服务器
+				"songname": song.play_song,
+				"songsrc": song.play_source,
+				"singer": song.play_singer,
+				"id": localStorage.getItem("id"),
+				"username": localStorage.getItem("username")
+			}
+
+			$.ajax({
+				type:"POST",
+				url:addr + "/listeninfo",
+				data:data,
+				success:res=>{
+					console.log(res)
+				},
+				error:err=>{
+					console.log(err)
+				}
+			})
+		}
+
+		function play(song) {
+			document.getElementById("play-image").setAttribute("src", song.play_image);
+			document.getElementById("play-source").setAttribute("src",  song.play_source );
+			document.getElementById("play-singer").innerHTML = song.play_singer;
+			document.getElementById("play-song").innerHTML = song.play_song;
+			document.getElementById("audio").load();
+            lyrics = song.lyrics;
+			updata_listen_info(song);
+		}
+		
+		function showLRC() {
+			var s="";
+			for(var i in oLRC.ms){//遍历ms数组，把歌词加入列表
+				s+='<li>'+oLRC.ms[i].c+'</li>';
+			}
+			document.getElementById("lyric").innerHTML = s;
+		}
+
+
+		// var storageMusic = localStorage.getItem("searchthing")
+		var old_playInfo = localStorage.getItem("play-info")
+
+		console.log(old_playInfo)
+		if(old_playInfo != "undefined") {
+			let oldplayInfo = JSON.parse(old_playInfo);
+			console.log(oldplayInfo)
+			document.getElementById("main-img").src = oldplayInfo.play_image;
+			document.getElementById("main-name").innerHTML = oldplayInfo.play_song;
+			document.getElementById("main-artist").innerHTML = oldplayInfo.play_singer;
+			createLrcObj(oldplayInfo.play_lyric)
+			showLRC()
+			play(oldplayInfo);
+		}
+		
+		var lineNo = 0 //当前行
+		var C_pos = 6 //C位
+		var offset = -20//滚动距离（应等于行高）
+		var audio = document.getElementById("audio");//播放器
+		var ul = document.getElementById("lyric"); //歌词容器列表
+
+		//高亮显示歌词当前行及文字滚动控制，行号为lineNo
+		function lineHigh() {
+			var lis = ul.getElementsByTagName("li");//歌词数组
+			if(lineNo>0){
+				lis[lineNo-1].removeAttribute("class");//去掉上一行的高亮样式
+			}
+			lis[lineNo].className = "lineHigh";//高亮显示当前行
+
+			//文字滚动
+			if(lineNo>C_pos){
+				ul.style.transform = "translateY("+(lineNo-C_pos)*offset+"px)"; //整体向上滚动一行高度
+			}
+		}
+
+		//滚回到开头，用于播放结束时
+		function goback() {
+			document.querySelector("#lyric .lineHigh").removeAttribute("class");
+			ul.style.transform = "translateY(0)";
+			lineNo = 0;
+		}
+
+		//监听播放器的timeupdate事件，实现文字与音频播放同步
+		audio.ontimeupdate = function () {
+			if(lineNo==oLRC.ms.length)
+				return;
+			var curTime = audio.currentTime; //播放器时间
+			if(parseFloat(oLRC.ms[lineNo].t)<=curTime){
+				lineHigh();//高亮当前行
+				lineNo++;
+			}
+		};
+
+		//监听播放器的ended事件，播放结束时回滚歌词
+		audio.onended = function () {
+			goback(); //回滚歌词
+		};
+
+
+		// var lyricInfo = localStorage.getItem 
+		
+		
+
+		function createLrcObj(lrc) {
+			if(lrc.length==0) return;
+			var lrcs = lrc.split('\n');//用回车拆分成数组
+			for(var i in lrcs) {//遍历歌词数组
+				lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
+				var t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]"));//取[]间的内容
+				var s = t.split(":");//分离:前后文字
+				if(isNaN(parseInt(s[0]))) { //不是数值
+					for (var i in oLRC) {
+						if (i != "ms" && i == s[0].toLowerCase()) {
+							oLRC[i] = s[1];
+						}
+					}
+				}else { //是数值
+					var arr = lrcs[i].match(/\[(\d+:.+?)\]/g);//提取时间字段，可能有多个
+					var start = 0;
+					for(var k in arr){
+						start += arr[k].length; //计算歌词位置
+					}
+					var content = lrcs[i].substring(start);//获取歌词内容
+					for (var k in arr){
+						var t = arr[k].substring(1, arr[k].length-1);//取[]间的内容
+						var s = t.split(":");//分离:前后文字
+						oLRC.ms.push({//对象{t:时间,c:歌词}加入ms数组
+							t: (parseFloat(s[0])*60+parseFloat(s[1])).toFixed(3),
+							c: content
+						});
+					}
+				}
+			}
+			oLRC.ms.sort(function (a, b) {//按时间顺序排序
+				return a.t-b.t;
+			});
+			/*
+			for(var i in oLRC){ //查看解析结果
+				console.log(i,":",oLRC[i]);
+			}*/
+		}
+
+		// createLrcObj(lrc);
+	</script>
+
+</body>
+
+</html>

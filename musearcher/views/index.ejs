@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuSearcher</title>
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link rel="stylesheet" href="../stylesheets/comment.css">
+  <link rel="stylesheet" href="../stylesheets/star.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <a class="logo-item" href="/">
+          <h2>MuSearcher</h2>
+        </a>
+      </div>
+      
+      <div class="avatar">
+        <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
+        <div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+        <div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+        <a href="sign-in">
+          <img class="avatar-img" src="../images/avatar-01.jpg">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="star" id="star">
+    <ul class="star-ul">
+      <li class="star-li">
+        <div class="star-li-left">
+          <img src="../images/china.png" class="star-img">
+          <span class="star-name">歌曲名</span>
+        </div>
+        <span class="star-artist">歌手</span>
+      </li>
+    </ul>
+  </div>
+
+  <main class="slider">
+    <div class="input">
+      <input class="input-text" id="music" type="text" placeholder="想听什么">
+      <input id="search-music" type="submit" value="Search">
+    </div>
+  </main>
+
+  <section class="list">
+    <h2 class="ranking—list">排行榜</h2>
+    <div class="albums albums-top" id="ranking-list">
+      <!-- set rankinglist here -->
+      <div class="album" id="global">
+        <div class="cover">
+          <img src="../images/global.png" width="200">
+        </div>
+        <a class="name">热门榜</a>
+        <!-- <a class="singer">{{artist}}</a> -->
+      </div>
+      <div class="album" id="china">
+        <div class="cover">
+          <img src="../images/china.png" width="200">
+        </div>
+        <a class="name">内地榜</a>
+        <!-- <a class="singer" href="#">{{artist}}</a> -->
+      </div>
+      <div class="album" id="english">
+        <div class="cover">
+          <img src="../images/english.png" width="200">
+        </div>
+        <a class="name" >欧美榜</a>
+      </div>
+      <div class="album" id="japan">
+        <div class="cover">
+          <img src="../images/japan.png" width="200">
+        </div>
+        <a class="name"">日本榜</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="classify">
+    <h2>分类歌单</h2>
+    <div class="albums">
+
+      
+    </div>
+  </section> -->
+  <section class="recommend">
+    <h2>为你推荐</h2>
+    <div class="albums" id="recommend">
+      
+    </div>
+  </section>
+
+
+  <section class="bottom">
+    <div class="test">
+      <div style="margin:auto;width: 80%;"><h2>评论</h2></div>
+      <div lang="en-US" class="gitment-container gitment-editor-container">
+        <div class="gitment-editor-main">
+          <div class="gitment-editor-body">
+            <div class="gitment-editor-write-field">
+              <textarea placeholder="在这里留下你的评论吧~ ' [歌曲名_歌手] '的格式会被替换为对应歌曲的链接，用你喜欢的歌试试吧" title="Login to Comment" id="comment-content"></textarea>
+            </div>
+            <div class="gitment-editor-preview-field gitment-hidden">
+              <div class="gitment-editor-preview gitment-markdown"></div>
+            </div>
+          </div>
+        </div>
+        <div class="gitment-editor-footer">
+          <button class="gitment-editor-submit" title="Login to Comment" id="comment">评论</button>
+        </div>
+      </div>
+      <div lang="en-US" class="gitment-container gitment-comments-container">
+        <ul class="gitment-comments-list" id="comments-list">
+          <!-- <li class="gitment-comment">
+            <a class="gitment-comment-avatar">
+              <img class="gitment-comment-avatar-img" src="../images/avatar-01.jpg">
+            </a>
+            <div class="gitment-comment-main">
+              <div class="gitment-comment-header">
+                <a class="gitment-comment-name">
+                  徐偲笑是南通
+                </a>
+                <span>2018.05.17</span>
+              </div>
+              <div class="gitment-comment-body gitment-markdown">
+                <p>雪豹<a onclick="clicktolyric(this)">神无月_初音未来</a>闭嘴</p>
+              </div>
+            </div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="btn-audio">
+      <div class="btn-cover">
+        <img id="play-image" src="/images/cover.jpg">
+      </div>
+      <div style="margin-left:6px">
+        <div id="play-song" class="btn-name">试着搜索一下吧~</div>
+        <div id="play-singer" class="btn-singer">...</div>
+      </div>
+      <div class="audio">
+        <audio controls="controls" id="audio">
+          <source id="play-source" src="" type="audio/mp3" />
+        </audio>
+      </div>
+      <div class="footer-star" onclick="clicktostar()"><img class="star-svg" src="/images/star.svg"></div>
+    </div>
+  </footer>
+
+  <script type="text/template" id="rankingList">
+    <div class="album" id={{id}} onclick="clicktolyric(this)">
+        <div class="cover">
+          <img src="{{image}}" width="100">
+        </div>
+        <a class="name" href="#">{{name}}</a>
+        <a class="singer" href="#">{{artist}}</a>
+      </div>
+  </script>
+
+  <script type="text/template" id="comment-element">
+    <li class="gitment-comment">
+      <a class="gitment-comment-avatar">
+        <img class="gitment-comment-avatar-img" src="../images/avatar-01.jpg">
+      </a>
+      <div class="gitment-comment-main">
+        <div class="gitment-comment-header">
+          <a class="gitment-comment-name">
+            {{name}}
+          </a>
+          <span>{{time}}</span>
+        </div>
+        <div class="gitment-comment-body gitment-markdown">
+          <p>{{content}}</p>
+        </div>
+      </div>
+    </li>
+  </script>
+
+  <script type="text/template" id="star-element">
+		<li class="star-li" id={{id}} onclick="clicktoplay_star(this)">
+		  <div class="star-li-left">
+			<img src="{{img}}" class="star-img">
+			<span class="star-name">{{song}}</span>
+		  </div>
+		  <span class="star-artist">{{artist}}</span>
+		</li>
+	</script>
+
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../javascripts/alluse.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    let music = $("#music");
+    let music_list = []
+
+    if(localStorage.getItem("id") == null) {
+      localStorage.setItem("id", Math.round(Rand * 1000000000))
+      localStorage.setItem("username", null)
+    }
+
+    setHeaderUsername()
+
+    function jumptoupload() {
+        document.location.href = "upload";
+    }
+
+    $('#search-music').click(() => {
+      if (music.val().length == 0) {
+        return;
+      }
+
+      let searchMusic = music.val();
+      let data = {
+        "searchMusic": searchMusic
+      }
+
+      localStorage.setItem("searchthing", data.searchMusic);
+      document.location.href = "search";
+      
+    })
+
+    $('#global').click(() => {
+      document.location.href = "rankinglist/1";
+    })
+    $('#china').click(() => {
+      document.location.href = "rankinglist/2";
+    })
+    $('#english').click(() => {
+      document.location.href = "rankinglist/3";
+    })
+    $('#japan').click(() => {
+      document.location.href = "rankinglist/4";
+    })
+
+    function clicktoplay(obj) {
+			console.log(obj.id);
+			let id = obj.id;
+			let i = Number(id);
+			console.log(music_list[i].pic);
+
+			document.getElementById("play-image").setAttribute("src", music_list[i].pic);
+			document.getElementById("play-source").setAttribute("src", music_list[i].url + '?' + new Date().getTime());
+			document.getElementById("play-singer").innerHTML = music_list[i].artist;
+			document.getElementById("play-song").innerHTML = music_list[i].name;
+			document.getElementById("audio").load();
+
+			let playInfo = {
+				"play_image": music_list[i].pic,
+				"play_source": music_list[i].url,
+				"play_singer": music_list[i].artist,
+				"play_song": music_list[i].name,
+        "play_lyric": music_list[i].lyric
+			};
+
+			
+			localStorage.setItem("play-info", JSON.stringify(playInfo)); //存在localstorage中在页面刷新后也能使用
+
+		}
+
+
+    function setRankingList(songs) {
+        if(songs.length == 0) {
+          document.querySelector("#recommend").innerHTML = "没有推荐？请先试着听几首喜欢的歌吧";
+        } else {
+          let num = 0;
+          let tpl = document.getElementById("rankingList").innerHTML;
+          let songhtml = songs.reduce((pre, cur) => {
+            let result = tpl
+              .replace("{{id}}", num++)
+              .replace("{{name}}", cur.name)
+              .replace("{{artist}}", cur.artist)
+              .replace("{{image}}", cur.pic)
+            return pre + result;
+          }, "");
+          document.querySelector("#recommend").innerHTML = songhtml;
+        }
+    }
+    
+    function setComments(comments) {
+      let tpl = document.getElementById("comment-element").innerHTML;
+      let commenthtml = comments.reduce((pre, cur) => {
+        let result = tpl
+          .replace("{{name}}", cur.username)
+          .replace("{{time}}", cur.time)
+          .replace("{{content}}", processComment(cur.comment))
+        return result + pre 
+      }, "");
+      document.querySelector("#comments-list").innerHTML = commenthtml;
+    }
+    
+    
+    var old_playInfo = localStorage.getItem("play-info");
+    if(old_playInfo != "undefined" && old_playInfo != null) {
+      let oldplayInfo = JSON.parse(old_playInfo);
+      play(oldplayInfo);
+    }
+
+    if(localStorage.getItem("id") == undefined) {
+				var Rand = Math.random()
+        var id = Math.round(Rand * 100000000);
+				localStorage.setItem("id", id)
+				localStorage.setItem("username", "newUser")
+		}
+    
+    if(localStorage.getItem("username") === "null" || localStorage.getItem("username") == undefined){
+      console.log("请登录后查看推荐歌曲")
+    } else {
+      $.ajax({
+        type:"POST",
+        url:addr + "/recommend",
+        data: {
+            id: localStorage.getItem("id")
+        },
+        success: res=>{
+          // setRankingList(res);
+            music_list = res
+            console.log(res)
+            setRankingList(res)
+        },
+        error: err=>{
+            console.log(err)
+        }
+      })
+    }
+    
+
+    $.ajax({
+      type: "get",
+      url: addr + "/comment",
+      success: res=>{
+        console.log("comment", res)
+        setComments(res)
+      },
+      error: err=>{
+        console.log(err)
+      }
+    })
+
+    function clicktolyric(obj) {
+			clicktoplay(obj)
+			document.location.href = 'lyric'
+		}
+
+    function clicktolyric2(obj) {
+			clicktoplay2(obj).then(()=>{
+        document.location.href = 'lyric'
+      })
+		}
+
+    function getComments() {
+      $.ajax({
+        type: "get",
+        url: addr + "/comment",
+        success: res=>{
+          
+        },
+        error: err=>{
+          console.log(err)
+        }
+      })
+    }
+
+    function processComment(comment) {
+      if(comment !== null){
+        return comment.replaceAll("[", "<a onclick='clicktolyric2(this)'>").replaceAll("]", "</a>")
+      } else {
+        return null
+      }
+    }
+    
+    $('#comment').click(() => {
+      let _username = localStorage.getItem("username");
+      if(_username == "null") {
+        alert("请登陆后评论")
+        return
+      }
+      let commentContent = $("#comment-content").val()
+      let data = {
+        "id": localStorage.getItem("id"),
+        "username": localStorage.getItem("username"),
+        "comment": commentContent
+      }
+      console.log(data)
+      $.ajax({
+        type: "post",
+        url: addr + "/comment",
+        data: data,
+        success: res=>{
+          setComments(res)
+          console.log("评论成功")
+        },
+        error: err=>{
+          console.log(err)
+        }
+      })
+		})
+
+
+
+
+    async function clicktoplay2(obj) {
+      let music = obj.innerHTML
+			console.log("music:", music)
+      let data = {
+          searchMusic: music
+      }
+      await $.ajax({
+        type:"POST",
+        url: addr + "/searchandplay",
+        data: data,
+        success:res=>{
+          document.getElementById("play-source").setAttribute("src", res.url)
+          document.getElementById("audio").load()
+          // console.log(res)
+
+          let playInfo = {
+            "play_image": res.pic,
+            "play_source": res.url,
+            "play_singer": res.artist,
+            "play_song": res.name,
+            "play_lyric": res.lyric
+          };
+          localStorage.setItem("play-info", JSON.stringify(playInfo)); //存在localstorage中在页面刷新后也能使用
+          // updata_listen_info(playInfo);
+        },
+        error:err=>{
+          console.log(err)
+        }
+      })
+		}
+  </script>
+</body>
+
+</html>

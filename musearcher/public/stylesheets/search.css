@@ -1,0 +1,141 @@
+.input {
+    margin-top: 100px;
+}
+
+body {
+    background: url(../images/background.jpg) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.search {
+    background: rgba(255, 255, 255, 0.75);
+    margin: auto;
+    border-radius: 10px;
+    width: 1000px;
+    margin-top:200px;
+}
+
+section {
+    margin:0;
+    padding: 0;
+    background: none;
+}
+
+.music-header {
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.song-fixed {
+    margin:15px 100px 0px 137px;
+}
+
+.singer-fixed {
+    margin:15px 100px 0px 277px;
+}
+
+.time-fixed {
+    margin:15px 100px 0px 65px;
+}
+
+.search-list {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.search-music-img {
+    border-radius: 3px;
+    width: 44px;
+    height: 44px;
+}
+
+.search-item {
+    display: flex;
+    padding: 10px 0 10px 50px;
+}
+
+.music-detail-song {
+    margin: 10px 0 0 40px;
+    width:200px;
+    height: 25px;
+}
+
+.music-detail-singer {
+    margin: 10px 0px 0 200px;
+    height: 25px;
+    width: 200px;
+}
+
+.music-detail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.music-detail>span {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.music-play-button {
+    visibility: hidden;
+    width: 30px;
+    margin-left: 10px;
+}
+.music-play-button>img{
+    width: 25px;
+    height: 25px;
+    margin-top: 9px;
+}
+
+.music-time {
+    cursor: pointer;
+    font-size: 10px;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 13px;
+}
+
+.music-time1 {
+    cursor: pointer;
+    font-size: 10px;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+
+.music-time>span {
+    font-size: 15px;
+    width: 50px;
+    font-weight: 300;
+    align-items: center;
+}
+
+.back {
+    position: absolute;
+    width: 50px;
+    height: 54px;
+    top: 0;
+    left: 37px;
+    right: 0;
+    bottom: 0;
+    margin-top: 100px;
+}
+
+.back>a>img {
+    width: 40px;
+}
+
+.back>img:hover {
+    cursor: pointer;
+}
+
+
+.music-play-button>img:hover {
+    cursor: pointer;    
+}
+
+.search-item:hover .music-play-button {
+    visibility:visible;
+}

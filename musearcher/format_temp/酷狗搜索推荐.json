@@ -1,0 +1,92 @@
+{
+    "status": 1,
+    "ErrorCode": 0,
+    "error_code": 0,
+    "data": [
+        {
+            "RecordDatas": [
+                {
+                    "Use": "alluser_h",
+                    "tags": [
+                        "热搜"
+                    ],
+                    "IsRadio": 0,
+                    "HintInfo": "周杰伦",
+                    "MatchCount": 0,
+                    "IsKlist": 1,
+                    "Hot": 275542
+                },
+                {
+                    "Use": "alluser_h",
+                    "IsRadio": 0,
+                    "HintInfo": "周深",
+                    "MatchCount": 0,
+                    "IsKlist": 1,
+                    "Hot": 64253
+                },
+                {
+                    "Use": "alluser_h",
+                    "IsRadio": 0,
+                    "HintInfo": "周传雄",
+                    "MatchCount": 0,
+                    "IsKlist": 1,
+                    "Hot": 48663
+                },
+                {
+                    "Use": "alluser_h",
+                    "IsRadio": 0,
+                    "HintInfo": "周华健",
+                    "MatchCount": 0,
+                    "IsKlist": 1,
+                    "Hot": 29493
+                },
+                {
+                    "Use": "alluser_h",
+                    "IsRadio": 0,
+                    "HintInfo": "周柏豪",
+                    "MatchCount": 0,
+                    "IsKlist": 1,
+                    "Hot": 9448
+                }
+            ],
+            "RecordCount": 5,
+            "LableName": ""
+        },
+        {
+            "RecordDatas": [
+                {
+                    "HintInfo": "周杰伦 - 最伟大的作品 / Greatest Works of Art",
+                    "MatchCount": 0,
+                    "IsRadio": 0,
+                    "Hot": 20466
+                },
+                {
+                    "HintInfo": "周杰伦 - 还在流浪",
+                    "MatchCount": 0,
+                    "IsRadio": 0,
+                    "Hot": 11292
+                }
+            ],
+            "RecordCount": 2,
+            "LableName": "MV"
+        },
+        {
+            "RecordDatas": [
+                {
+                    "HintInfo": "周杰伦 - 魔杰座",
+                    "MatchCount": 0,
+                    "IsRadio": 0,
+                    "Hot": 171140551
+                },
+                {
+                    "HintInfo": "周杰伦 - 十一月的萧邦",
+                    "MatchCount": 0,
+                    "IsRadio": 0,
+                    "Hot": 122262500
+                }
+            ],
+            "RecordCount": 2,
+            "LableName": "专辑"
+        }
+    ]
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" style="background: none;">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MuSearcher</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/music.css">
+    <link rel="stylesheet" href="../stylesheets/mv.css">
+    <link rel="stylesheet" href="../stylesheets/upload.css">
+	<link rel="stylesheet" href="../stylesheets/star.css">
+</head>
+
+<body style="background: #fafafa">
+	<header>
+		<div class="container">
+			<div class="logo">
+				<a class="logo-item" href="javascript:history.back(-1)">
+					<h2>MuSearcher</h2>
+				</a>
+			</div>
+			<div class="avatar">
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
+				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+        		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+				<a href="sign-in">
+					<img class="avatar-img" src="../images/avatar-01.jpg">
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="star" id="star">
+		<ul class="star-ul">
+		  <li class="star-li">
+			<div class="star-li-left">
+			  <img src="../images/china.png" class="star-img">
+			  <span class="star-name">歌曲名</span>
+			</div>
+			<span class="star-artist">歌手</span>
+		  </li>
+		</ul>
+	  </div>
+	<section class="slider1">
+		<div class="input1">
+			<input class="input-text" id="music" type="text" placeholder="搜索已上传歌曲">
+			<input id="search-music" type="submit" value="Search">
+		</div>
+        <div class="upload">
+			<div class="search2">
+				<!-- <div class="music-header1">
+					<div class="song-fixed1"><span>搜索结果</span></div>
+				</div> -->
+				<div class="search-list" id="search-list">
+					<!-- <div class="search-item">name1</div> -->
+				</div>
+			</div>
+			<div class="search1">
+				<div class="music-header1">
+					<div class="song-fixed1"><span>全部上传</span></div>
+				</div>
+				<div class="search-list" id="all-list">
+					<!-- <div class="search-item">name16</div> -->
+				</div>
+			</div>
+        </div>
+	</section>
+	<footer1>
+        <div class="upload">
+            <div class="title">上传歌曲</div>
+			<div class="uploadbox">
+				<input type="file" id="choose-file" class="tip" name="选择文件" onchange="handleFile()"></input> 
+				<div class="arrow"><img class="uploadsvg" src="./images/向上箭头.svg"></div>
+                <div id="filename" class="uploadbox-foot">请点击或将文件拖拽到此处</div>
+			</div>
+		
+			<button type="button" id="comfirm" class="button">确认上传</button>
+        </div>
+    </footer1>
+	<footer>
+		<div class="btn-audio">
+		  <div class="btn-cover">
+			<img id="play-image" src="/images/cover.jpg">
+		  </div>
+		  <div style="margin-left:6px">
+			<div id="play-song" class="btn-name">试着搜索一下吧~</div>
+			<div id="play-singer" class="btn-singer">...</div>
+		  </div>
+		  <div class="audio">
+			<audio controls="controls" id="audio">
+			  <source id="play-source" src="" type="audio/mp3" />
+			</audio>
+		  </div>
+		  <div id="footer-star" class="footer-star" onclick="clicktostar()"><img class="star-svg" src="/images/star.svg"></div>
+		</div>
+	  </footer>
+</body>
+
+<script type="text/template" id="star-element">
+    <li class="star-li" id={{id}} onclick="clicktoplay_star(this)">
+      <div class="star-li-left">
+        <img src="{{img}}" class="star-img">
+        <span class="star-name">{{song}}</span>
+      </div>
+      <span class="star-artist">{{artist}}</span>
+    </li>
+  </script>
+
+<script type="text/template" id="uploadSong">
+	<div class="search-item" onclick="playUploadMusic(this)">{{songName}}</div>
+</script>
+
+<script type="text/template" id="uploadSong2">
+	<div class="search-item2" onclick="playUploadMusic(this)">{{songName}}</div>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../javascripts/alluse.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	function jumptoupload() {
+        document.location.href = "upload";
+    }
+
+	setHeaderUsername()
+
+	$('#search-music').click(() => {
+		let searchMusic = $("#music").val();
+		let data = {
+			"search": searchMusic
+		}
+		$.ajax({  //链接路由
+			type: "POST",
+			url: addr+"/upload/search",
+			data: data,
+			success: res =>{
+				console.log(res)
+				let tpl = document.getElementById("uploadSong2").innerHTML
+				let listhtml = res.reduce((pre, cur)=>{
+					let result = tpl
+						.replace("{{songName}}", cur.item.name)
+					return pre + result;
+				}, "")
+				document.querySelector("#search-list").innerHTML = listhtml
+			}
+		})
+	});
+
+	$('#comfirm').click(()=>{
+		if(localStorage.getItem("username") == "null") {
+			alert("请先登录")
+			return
+		}
+		let files = $('#choose-file')[0].files
+		if (files.length <= 0) {
+			console.log('请选择歌曲后再上传！')
+			return;
+		}
+		let data = new FormData();
+ 		data.append('avatar', files[0]);
+		console.log(files[0].type) //audio/mpeg
+		if(/audio\/\w+/.test(files[0].type) !== true) { //文件类型判断，支持audio类型文件
+			alert("只支持audio类型文件")
+			console.log("只支持audio类型文件")
+			return
+		}
+		$.ajax({
+			type: "POST",
+			url: addr + "/upload",
+			data: data,
+			// 不修改 Content-Type 属性，使用 FormData 默认的 Content-Type 值
+			contentType: false,
+			// 不对 FormData 中的数据进行 url 编码，而是将 FormData 数据原样发送到服务器
+			processData: false,
+			success: res=>{
+				let resJs = JSON.parse(res)
+				alert(resJs.message, resJs.filename)
+			},
+			error: err=>{
+				alert(err)
+			}
+		})
+	})
+
+	function handleFile(){
+        var fileName = document.getElementById("filename");
+		let file = document.getElementById("choose-file").files[0]
+		let name = file.name
+		console.log(name)
+		fileName.innerHTML = name;
+	}
+
+	function play1(song) {
+		if (song == "undefined" || song == null) return;
+        document.getElementById("play-image").setAttribute("src", song.play_image);
+        document.getElementById("play-source").setAttribute("src",  song.play_source);
+        document.getElementById("play-singer").innerHTML = song.play_singer;
+        document.getElementById("play-song").innerHTML = song.play_song;
+        document.getElementById("audio").load();
+	}
+	var old_playInfo = localStorage.getItem("play-info");
+    if(old_playInfo != "undefined") {
+      let oldplayInfo = JSON.parse(old_playInfo);
+      play1(oldplayInfo);
+    }
+
+	function playUploadMusic(obj) {
+		document.getElementById("play-image").setAttribute("src", addr + "/upload/getImg?song="+obj.innerHTML);
+		document.getElementById("play-song").innerHTML = obj.innerHTML;
+		document.getElementById("play-source").setAttribute("src", addr+"/upload/getUploadMusic?song="+obj.innerHTML)
+		document.getElementById("play-singer").innerHTML = "";
+		document.getElementById("audio").load();
+		let playInfo = {
+			"play_image": addr+"/upload/getImg?song="+obj.innerHTML,
+			"play_source": addr+"/upload/getUploadMusic?song="+obj.innerHTML,
+			"play_singer": "",
+			"play_song": obj.innerHTML,
+        	"play_lyric": "",
+			"platform": "Mu"
+		};
+		localStorage.setItem("play-info", JSON.stringify(playInfo));
+	}
+
+	$.ajax({
+		url: addr + "/upload/getlist",
+		type: "GET",
+		success: res=>{
+			console.log(res);
+			let tpl = document.getElementById("uploadSong").innerHTML
+			let listhtml = res.reduce((pre, cur)=>{
+				let result = tpl
+					.replace("{{songName}}", cur.name)
+				return result + pre;
+			}, "")
+			document.querySelector("#all-list").innerHTML = listhtml
+		}
+	})
+</script>
+</html>

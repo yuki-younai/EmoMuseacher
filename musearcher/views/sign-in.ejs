@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MuSearcher</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/sign.css">
+	<link rel="stylesheet" href="../stylesheets/star.css">
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="logo">
+				<a class="logo-item" href="/">
+					<h2>MuSearcher</h2>
+				</a>
+			</div>
+			<div class="avatar">
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
+				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+        		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+				<a href="sign-in">
+					<img class="avatar-img" src="../images/avatar-01.jpg">
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="star" id="star">
+		<ul class="star-ul">
+		  <li class="star-li">
+			<div class="star-li-left">
+			  <img src="../images/china.png" class="star-img">
+			  <span class="star-name">歌曲名</span>
+			</div>
+			<span class="star-artist">歌手</span>
+		  </li>
+		</ul>
+	  </div>
+	<main class="slider1">
+		<header1>
+			<div class="back" href="#">
+				<a href="/"><img src="../images/返回.svg"></a>
+			</div>
+		</header1>
+		<div class="sign-in-input">
+      		<input id="phone" class="username" type="text" placeholder="用户名">
+			<input id="pwd" class="password" type="text" placeholder="密码">
+			<div class="registerlogin">
+				<input id="register" class="sign-in" type="submit" value="注册">
+				<input id="login" class="sign-in" type="submit" value="登录">
+				<input id="unlogin" class="sign-in" type="submit" value="退出登录">
+			</div>
+    	</div>
+	</main>
+
+	<script type="text/template" id="star-element">
+		<li class="star-li" id={{id}} onclick="clicktoplay_star(this)">
+		  <div class="star-li-left">
+			<img src="{{img}}" class="star-img">
+			<span class="star-name">{{song}}</span>
+		  </div>
+		  <span class="star-artist">{{artist}}</span>
+		</li>
+	  </script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../javascripts/alluse.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+
+		let phone=$("#phone");		//用户名
+		let pwd=$("#pwd");			//密码
+		function jumptoupload() {
+			document.location.href = "upload";
+		}
+		setHeaderUsername()
+		$("#unlogin").click(function(){
+			localStorage.setItem("id", null)
+			localStorage.setItem("username", null)
+			alert("退出成功")
+		})
+
+		let isClickLogin = false;
+		$("#login").click(function(){
+			if(isClickLogin === true){
+				console.log("请不要重复点击")
+				alert("请不要重复点击")
+				return 
+			}
+			isClickLogin = true;
+			setTimeout(function(){ 
+				isClickLogin = false;
+			}, 500);
+			if(phone.val().length==0||pwd.val().length==0){
+				alert("用户或密码不能为空")
+				return;
+			}
+			var getPhone=phone.val()
+			var getPwd=pwd.val()
+			var data={
+				"type": "login",
+				"name": getPhone,
+				"pwd": getPwd
+			}
+			$.ajax({
+				type: "POST",
+				url: addr+"/sign-in",
+				data: data,
+				success:res=>{
+					console.log(res)
+					if(res.code == 200){
+						console.log(getPhone);
+						localStorage.setItem("id", res.id);
+						localStorage.setItem("username", getPhone); //用localStorage存储用户信息
+						alert(res.msg)
+					}else{
+						alert(res.msg)
+					}
+				},
+				error:err=>{
+					console.log(err)
+				}
+			})
+		})
+
+		let isClickRegister = false;
+		$("#register").click( function(){
+			if(phone.val().length==0||pwd.val().length==0){
+				alert("用户或密码不能为空")
+				return;
+			}
+			var getPhone=phone.val()
+			var getPwd=pwd.val()
+			var data={
+				"type": "register",
+				"name": getPhone,
+				"pwd": getPwd
+			}
+			$.ajax({
+				type:"POST",
+				url:addr+"/sign-in",
+				data: data,
+				success: res=>{
+					console.log(res)
+					if(res.code == 200){
+						console.log(getPhone);
+						localStorage.setItem("id", res.id);
+						localStorage.setItem("username", getPhone);
+						alert(res.msg)
+					}else{
+						alert(res.msg)
+					}
+				},
+				error:err=>{
+					console.log(err)
+				}
+			})
+		})
+		
+
+	</script>
+
+</body>
+
+</html>

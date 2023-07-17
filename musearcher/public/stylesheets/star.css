@@ -1,0 +1,72 @@
+.star {
+    position: fixed;
+    z-index:999;
+    right: 10px;
+    top: 70px;
+    width: 400px;
+    height: 300px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 4px;
+    overflow: scroll;
+    overflow-x: hidden;
+    display: none;
+    padding: 8px;
+}
+
+.star::-webkit-scrollbar
+{
+    /*滚动条整体样式*/
+    width: 8px;     /*高宽分别对应横竖滚动条的尺寸*/  height: 1px;
+}
+.star::-webkit-scrollbar-thumb
+{
+    /*滚动条里面小方块*/
+    border-radius: 10px;  background: #9e9e9e;  box-shadow: inset 0 0 5px rgba(0, 122, 204);
+}
+
+.star::-webkit-scrollbar-track
+{
+    border-radius: 10px;  background: #ededed;
+    box-shadow: inset 0 0 5px rgba( 0, 0, 0, .1);
+}
+
+ul {
+    list-style: none;
+    padding-left: 3%;
+}
+
+.star-ul {
+    /*  */
+}
+
+.star-li {
+    display: flex;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+
+.star-li-left {
+    display: flex;
+}
+
+.star-name {
+    font-weight: bolder;
+    margin: auto 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+}
+
+.star-artist {
+    margin: auto 5px;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.star-img {
+    width: 40px;
+    border-radius: 50%;
+}

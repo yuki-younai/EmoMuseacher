@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>my first express</p>
+    <div>
+      <button id="jump-to-register">注册</button>
+      <button id="jump-to-login">登录</button>
+      <input id="music" placeholder="歌曲">
+      <button id="search-music">搜索</button>
+    </div>
+    <div class="musicList"></div>
+
+    <script type="text/template" id="tpl">
+      <div">
+        <p>{{songid}}</p>
+      </div>
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script typt="text/javascript">
+
+      //跳转至注册页面
+      $('#jump-to-register').click( () => {
+        location.href = "register";
+      });
+
+      //跳转至登录页面
+      $('#jump-to-login').click( () => { 
+        location.href = "login";
+      });
+
+      
+
+      var music = $("#music");
+      $('#search-music').click( () => {
+        if(music.val().length == 0) {
+          return;
+        }
+
+        var searchSrc = "http://iecoxe.top:5000/v1/kuwo/search?key=" + music.val();
+        console.log(searchSrc);
+
+        
+        
+
+        $.ajax({ //获取搜索结果 ,自动转换json为对象
+          type: "GET",
+          url: searchSrc,
+          dataType: "json",
+          success: (res) => {
+            console.log(res);
+            // let searchRes = JSON.parse(res);
+            let searchRes = res;
+            let tpl = document.getElementById("tpl").innerHTML;
+
+            console.log(searchRes.data.list);
+
+            var searchSrc2s = [];
+            var songUrls = [];
+            
+            for(var songid of searchRes.data.list) {
+              let searchSrc2 = "http://iecoxe.top:5000/v1/kuwo/song?rid=" + songid.rid;
+              searchSrc2s.push(searchSrc2);
+              console.log(searchSrc2);
+              
+              $.ajax({ //获取搜索结果 ,自动转换json为对象
+                type: "GET",
+                url: searchSrc2,
+                dataType: "json",
+                success: (res) => {
+                  let searchRes2 = res;
+                  if(Object.keys(searchRes2).length < 8) 
+                    return;
+                  var songUrl = searchRes2.data.url;
+                  songUrls.push(songUrl);
+                  console.log(songUrl);
+                },
+                error: (err) => {
+                  console.log(err);
+                  retern;
+                }
+              });
+            }
+
+            
+            console.log("read succ");
+
+            setTimeout( () => {
+              console.log("read succ2");
+              let songhtml = songUrls.reduce( (pre, cur) => {
+                let result = tpl
+                  .replace("{{songid}}", cur);
+                return pre + result;
+              }, "");
+              document.querySelector(".musicList").innerHTML = songhtml;
+            }, 2000);
+            
+          },
+          error: (err) => {
+            console.log(err);
+          }
+        })
+        
+      })
+      
+      
+
+      $.ajax({ //可以成功读取网页的json文件
+        type: "GET",
+        url: "http://iecoxe.top:5000/v1/kuwo/song?rid=83406678",
+        dataType: "json",
+        success: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+
+
+      
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    /* background: rgba(0, 0, 0, 0.774); */
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.left {
+    position: fixed;
+    height: 100%;
+    width: 25%;
+    background: #000000;
+}
+
+.lyr-img {
+    margin: 20px 20px;
+    margin-top: 80px;
+    width: 60%;
+}
+
+.lyr-name {
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    margin: 0px 20px;
+}
+
+.lyr-artist {
+    color: rgb(255, 255, 255);
+    margin: 0px 20px;
+}
+
+.right {
+    font-size: 30px;
+    margin-top: 59px;
+    float: right;
+    /* height: 100%; */
+    background: rgba(0, 0, 0, 0.774);
+    width: 75%;
+}
+
+.lyric {
+    color: rgb(209, 209, 211);
+}
+
+ul {
+    list-style: none;
+}
+
+.lineHigh{/*高亮行*/
+	color: rgb(0, 195, 255);
+}
+/* .list li{list-style-type:none} */
