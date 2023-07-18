@@ -20,6 +20,8 @@ var mvlistRouter = require('./routes/mvlist');
 var lyricRouter = require('./routes/lyric');
 var commentRouter = require('./routes/comment');
 var starRouter = require('./routes/star')
+var gptRouter = require('./routes/gpt')
+var sysRouter = require('./routes/sysmusic')
 
 var app = express();
 
@@ -51,9 +53,12 @@ app.use("/rankinglist", rankinglistRouter);
 app.use("/recommend", recommendRouter);
 app.use("/searchandplay", searchandplayRouter);
 app.use("/mvlist", mvlistRouter);
-app.use("/lyric", lyricRouter)
-app.use("/comment", commentRouter)
-app.use("/star", starRouter)
+app.use("/lyric", lyricRouter);
+app.use("/comment", commentRouter);
+app.use("/star", starRouter);
+app.use("/gpt", gptRouter);
+app.use("/sysmusic",sysRouter);
+
 
 //中间件按顺序依次匹配，前面的路径没有匹配上后到下一步
 

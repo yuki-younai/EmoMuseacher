@@ -7,7 +7,7 @@ const e = require("express");
 
 async function searchmusic(searchContent) { //设为async函数，因为有axios存在等待行为。
 
-    var searchSrc = interface.qqSearch + searchContent + "&limit=10"; //输入搜索地址
+    var searchSrc = interface.qqSearch + searchContent + "&limit=100"; //输入搜索地址
     var songList = [];
     var searchSrcs2 = []; //歌曲rid搜索列表
     let searchSrcs3 = []; //歌词搜索列表

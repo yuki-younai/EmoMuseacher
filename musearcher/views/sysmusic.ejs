@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MuSearcher</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/search.css">
+	<link rel="stylesheet" href="../stylesheets/star.css">
+  <link rel="stylesheet" href="../stylesheets/select.css">
+	<!-- <link rel="stylesheet" href="../stylesheets/top.css"> -->
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="logo">
+				<a class="logo-item" href="/">
+					<h2>MuSearcher</h2>
+				</a>
+			</div>
+			<div class="avatar">
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+				<div class="top"upload onclick="showStar()"><p class="inupload">My Collection</p></div>
+        		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+				<img class="avatar-img" src="../images/avatar-01.jpg">
+			</div>
+		</div>
+	</header>
+
+	<header1>
+		<div class="back" href="#">
+			<a href="/"><img src="../images/返回.svg"></a>
+		</div>
+	</header1>
+
+  <div class="center-select select-wrapper">
+		<div class="artist-select">
+			<img class="round-image" src="../images/sing.png" alt="Artist Avatar">
+			<select id="artist-select">
+				<option value="">Select character </option>
+				<option value="sing1"> 1</option>
+				<option value="sing2"> 2</option>
+				<option value="sing3"> 3</option>
+			</select>
+		</div>
+
+    <div class="song-select">
+			<img class="round-image" src="../images/song.jpg" alt="Artist Avatar">
+			<select id="song-select">
+				<option value="">Select song</option>
+				<option value="song1">1</option>
+				<option value="song2">2</option>
+				<option value="song3">3</option>
+			</select>
+		</div>
+
+	</div>
+
+  <img class="singimage" src="../images/song.jpg" alt="Artist Avatar">
+  <img class="songimage" src="../images/song.jpg" alt="Artist Avatar">
+
+
+	<footer>
+		<div class="btn-audio">
+			<div class="btn-cover">
+				<img id="play-image" src="../images/cover.jpg">
+			</div>
+			<div style="margin-left:6px">
+				<div id="play-song" class="btn-name">Try searching~</div>
+				<div id="play-singer" class="btn-singer"></div>
+			</div>
+			<div class="audio" >
+				<audio controls="controls" id="audio">
+					<source id="play-source" src="../audio/1.mp3" type="audio/mp3" />
+				</audio>
+			</div>
+			<div class="footer-star" onclick="clicktostar()"><img class="star-svg" src="/images/star.svg"></div>
+		</div>
+	</footer>
+  <script>
+  const selectElement1 = document.getElementById('artist-select');
+  const selectElement2 = document.getElementById('song-select');
+  const image1 = document.querySelector('.singimage');
+  const image2 = document.querySelector('.songimage');
+  const audioElement = document.getElementById('audio');
+  const sourceElement = document.getElementById('play-source');
+  const playSongElement = document.getElementById('play-song');
+ 
+  let selectedValue1;
+  let selectedValue2;
+
+  selectElement1.addEventListener('change', (event) => {
+  selectedValue1 = event.target.value;
+  if(selectedValue1=="sing1")
+  {
+    image1.setAttribute('src', '../images/sing1.png');
+  }
+  else if(selectedValue1=="sing2")
+  {
+    image1.setAttribute('src', '../images/wite.png');
+  }
+  else
+  {
+    image1.setAttribute('src', '../images/sing3.png');
+  }
+ 
+  });
+
+  selectElement2.addEventListener('change', (event) => {
+  selectedValue2 = event.target.value;
+  if(selectedValue2=="song1")
+  {
+    if(selectedValue1=="sing1")
+    {
+      sourceElement.setAttribute('src', "../audio/1.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name1';
+    }
+    else if(selectedValue1=="sing2")
+    {
+      sourceElement.setAttribute('src', "../audio/2.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name2';
+    }
+    else
+    {
+      sourceElement.setAttribute('src', "../audio/3.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name3';
+    }
+    image2.setAttribute('src', '../images/sing1.png');
+  }
+  else if(selectedValue2=="song2")
+  {
+    if(selectedValue1=="sing1")
+    {
+      sourceElement.setAttribute('src', "../audio/1.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name1';
+    }
+    else if(selectedValue1=="sing2")
+    {
+      sourceElement.setAttribute('src', "../audio/2.mp3");
+      playSongElement.textContent = 'New Song Name2';
+      audioElement.load();
+    }
+    else
+    {
+      sourceElement.setAttribute('src', "../audio/3.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name3';
+    }
+    image2.setAttribute('src', '../images/wite.png');
+  }
+  else
+  {
+    if(selectedValue1=="sing1")
+    {
+      sourceElement.setAttribute('src', "../audio/1.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name1';
+    }
+    else if(selectedValue1=="sing2")
+    {
+      sourceElement.setAttribute('src', "../audio/2.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name2';
+    }
+    else
+    {
+      sourceElement.setAttribute('src', "../audio/3.mp3");
+      audioElement.load();
+      playSongElement.textContent = 'New Song Name3';
+    }
+    image2.setAttribute('src', '../images/sing3.png');
+    
+  }
+   console.log(selectedValue1);
+  });
+
+
+
+  function jumptoupload() {
+        document.location.href = "upload";
+    }
+
+  </script>
+
+</body>
+
+</html>

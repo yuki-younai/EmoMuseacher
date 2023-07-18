@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../stylesheets/style.css">
   <link rel="stylesheet" href="../stylesheets/comment.css">
   <link rel="stylesheet" href="../stylesheets/star.css">
+  <link rel="stylesheet" href="../stylesheets/new.css">
 </head>
 
 <body>
@@ -21,8 +22,9 @@
       </div>
       
       <div class="avatar">
-        <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
-        <div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+        <div class="uploadtop" onclick="jumptosysmusic()"><p class="inupload">Synthetic music</p></div>
+        <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+        <div class="uploadtop" onclick="showStar()"><p class="inupload">My Collection</p></div>
         <div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
         <a href="sign-in">
           <img class="avatar-img" src="../images/avatar-01.jpg">
@@ -36,49 +38,73 @@
       <li class="star-li">
         <div class="star-li-left">
           <img src="../images/china.png" class="star-img">
-          <span class="star-name">歌曲名</span>
+          <span class="star-name">Song name</span>
         </div>
-        <span class="star-artist">歌手</span>
+        <span class="star-artist">Singer</span>
       </li>
     </ul>
   </div>
 
   <main class="slider">
     <div class="input">
-      <input class="input-text" id="music" type="text" placeholder="想听什么">
+      <input class="input-text" id="music" type="text" placeholder="What do you want to hear?">
       <input id="search-music" type="submit" value="Search">
     </div>
   </main>
 
+ 
+  <div class="wrapper">
+    <i class="avatar1"></i>
+    <textarea id="tx" placeholder="Why don't you ask GPT for help?" rows="2" maxlength="200"></textarea>
+    <button id="publishBtn">ask</button>
+  </div>
+
+  <div class="wrapper">
+    <span class="total">0/200 words</span>
+  </div>
+
+  <div class="list1">
+    <div class="item" style="display: none;">
+      <i class="avatar"></i>
+      <div class="info">
+        <p class="gpt">ChatGPT</p>
+        <p class="text1">...please waiting</p>
+      </div>
+    </div>
+  </div>
+
+
+
   <section class="list">
-    <h2 class="ranking—list">排行榜</h2>
+    <h2 class="ranking—list">ranking list
+    </h2>
     <div class="albums albums-top" id="ranking-list">
       <!-- set rankinglist here -->
       <div class="album" id="global">
         <div class="cover">
           <img src="../images/global.png" width="200">
         </div>
-        <a class="name">热门榜</a>
+        <a class="name">Hot List</a>
         <!-- <a class="singer">{{artist}}</a> -->
       </div>
       <div class="album" id="china">
         <div class="cover">
           <img src="../images/china.png" width="200">
         </div>
-        <a class="name">内地榜</a>
+        <a class="name">Mainland Ranking</a>
         <!-- <a class="singer" href="#">{{artist}}</a> -->
       </div>
       <div class="album" id="english">
         <div class="cover">
           <img src="../images/english.png" width="200">
         </div>
-        <a class="name" >欧美榜</a>
+        <a class="name" >European and American charts</a>
       </div>
       <div class="album" id="japan">
         <div class="cover">
           <img src="../images/japan.png" width="200">
         </div>
-        <a class="name"">日本榜</a>
+        <a class="name"">Japan Charts</a>
       </div>
     </div>
   </section>
@@ -91,7 +117,7 @@
     </div>
   </section> -->
   <section class="recommend">
-    <h2>为你推荐</h2>
+    <h2>Recommend for you</h2>
     <div class="albums" id="recommend">
       
     </div>
@@ -100,12 +126,13 @@
 
   <section class="bottom">
     <div class="test">
-      <div style="margin:auto;width: 80%;"><h2>评论</h2></div>
+      <div style="margin:auto;width: 80%;"><h2>comment
+      </h2></div>
       <div lang="en-US" class="gitment-container gitment-editor-container">
         <div class="gitment-editor-main">
           <div class="gitment-editor-body">
             <div class="gitment-editor-write-field">
-              <textarea placeholder="在这里留下你的评论吧~ ' [歌曲名_歌手] '的格式会被替换为对应歌曲的链接，用你喜欢的歌试试吧" title="Login to Comment" id="comment-content"></textarea>
+              <textarea placeholder="Leave a comment here~ " title="Login to Comment" id="comment-content"></textarea>
             </div>
             <div class="gitment-editor-preview-field gitment-hidden">
               <div class="gitment-editor-preview gitment-markdown"></div>
@@ -144,7 +171,7 @@
         <img id="play-image" src="/images/cover.jpg">
       </div>
       <div style="margin-left:6px">
-        <div id="play-song" class="btn-name">试着搜索一下吧~</div>
+        <div id="play-song" class="btn-name">Try searching~</div>
         <div id="play-singer" class="btn-singer">...</div>
       </div>
       <div class="audio">
@@ -155,6 +182,85 @@
       <div class="footer-star" onclick="clicktostar()"><img class="star-svg" src="/images/star.svg"></div>
     </div>
   </footer>
+
+  <script>
+    const tx = document.querySelector('#tx')
+    const total = document.querySelector('.total')
+    const item = document.querySelector('.item')
+    const text = document.querySelector('.text1')
+    const but = document.querySelector('.text1')
+    const publishBtn = document.querySelector('#publishBtn');
+    // 1. 当我们文本域获得了焦点，就让 total 显示出来
+    tx.addEventListener('focus', function () {
+      total.style.opacity = 1
+    })
+    // 2. 当我们文本域失去了焦点，就让 total 隐藏出来
+    tx.addEventListener('blur', function () {
+      total.style.opacity = 0
+    })
+    // 3. 检测用户输入
+    tx.addEventListener('input', function () {
+      // console.log(tx.value.length)  得到输入的长度
+      total.innerHTML = `${tx.value.length}/200字`
+    })
+
+    // 4. 按下回车发布评论
+    tx.addEventListener('keyup', function (e) {
+      // 只有按下的是回车键，才会触发
+      // console.log(e.key)
+      if (e.key === 'Enter') {
+        // 如果用户输入的不为空就显示和打印
+        if (tx.value.trim()) {
+          // console.log(11)
+          item.style.display = 'block'
+          // console.log(tx.value)  // 用户输入的内容
+          text.innerHTML = tx.value
+
+        }
+        // 等我们按下回车，结束，清空文本域
+        tx.value = ''
+        // 按下回车之后，就要把 字符统计 复原
+        total.innerHTML = '0/200字'
+      }
+
+    })
+publishBtn.addEventListener('click', function(event) {
+  // 处理点击事件的代码逻辑
+  if (tx.value.trim()) {
+          // console.log(11)
+          item.style.display = 'block'
+          // console.log(tx.value)  // 用户输入的内容
+          // text.innerHTML = tx.value
+
+        }
+        $.ajax({
+        type: "post",
+        url: addr + "/gpt",
+        data: {
+           input:tx.value,
+           type:200
+        },
+        success: res=>{
+          console.log(res);
+          text.innerHTML=res.content;
+          // text.innerHTML='你好<br>你好<br>'
+          
+        },
+        error: err=>{
+          console.log("fail");
+          text.innerHTML="你好失败了";
+        }
+      })
+        // 等我们按下回车，结束，清空文本域
+        tx.value = ''
+        // 按下回车之后，就要把 字符统计 复原
+        total.innerHTML = '0/200字'
+});
+
+  </script>
+
+
+
 
   <script type="text/template" id="rankingList">
     <div class="album" id={{id}} onclick="clicktolyric(this)">
@@ -210,6 +316,9 @@
 
     function jumptoupload() {
         document.location.href = "upload";
+    }
+    function jumptosysmusic() {
+        document.location.href = "sysmusic";
     }
 
     $('#search-music').click(() => {
@@ -311,7 +420,7 @@
 		}
     
     if(localStorage.getItem("username") === "null" || localStorage.getItem("username") == undefined){
-      console.log("请登录后查看推荐歌曲")
+      console.log("Please log in to view the recommended songs")
     } else {
       $.ajax({
         type:"POST",
@@ -395,7 +504,7 @@
         data: data,
         success: res=>{
           setComments(res)
-          console.log("评论成功")
+          console.log("Comments success")
         },
         error: err=>{
           console.log(err)

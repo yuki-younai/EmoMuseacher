@@ -22,8 +22,8 @@
 				</a>
 			</div>
 			<div class="avatar">
-				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
-				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+				<div class="uploadtop" onclick="showStar()"><p class="inupload">My Collection</p></div>
         		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
 				<a href="sign-in">
 					<img class="avatar-img" src="../images/avatar-01.jpg">
@@ -36,15 +36,15 @@
 		  <li class="star-li">
 			<div class="star-li-left">
 			  <img src="../images/china.png" class="star-img">
-			  <span class="star-name">歌曲名</span>
+			  <span class="star-name">Song name</span>
 			</div>
-			<span class="star-artist">歌手</span>
+			<span class="star-artist">Singer</span>
 		  </li>
 		</ul>
 	  </div>
 	<section class="slider1">
 		<div class="input1">
-			<input class="input-text" id="music" type="text" placeholder="搜索已上传歌曲">
+			<input class="input-text" id="music" type="text" placeholder="Search for uploaded songs">
 			<input id="search-music" type="submit" value="Search">
 		</div>
         <div class="upload">
@@ -58,7 +58,7 @@
 			</div>
 			<div class="search1">
 				<div class="music-header1">
-					<div class="song-fixed1"><span>全部上传</span></div>
+					<div class="song-fixed1"><span>Upload all</span></div>
 				</div>
 				<div class="search-list" id="all-list">
 					<!-- <div class="search-item">name16</div> -->
@@ -68,14 +68,15 @@
 	</section>
 	<footer1>
         <div class="upload">
-            <div class="title">上传歌曲</div>
+            <div class="title">Upload a song</div>
 			<div class="uploadbox">
-				<input type="file" id="choose-file" class="tip" name="选择文件" onchange="handleFile()"></input> 
+				<input type="file" id="choose-file" class="tip" name="Select file
+				" onchange="handleFile()"></input> 
 				<div class="arrow"><img class="uploadsvg" src="./images/向上箭头.svg"></div>
-                <div id="filename" class="uploadbox-foot">请点击或将文件拖拽到此处</div>
+                <div id="filename" class="uploadbox-foot">Click or drag the file here</div>
 			</div>
 		
-			<button type="button" id="comfirm" class="button">确认上传</button>
+			<button type="button" id="comfirm" class="button">Confirm upload</button>
         </div>
     </footer1>
 	<footer>
@@ -84,7 +85,7 @@
 			<img id="play-image" src="/images/cover.jpg">
 		  </div>
 		  <div style="margin-left:6px">
-			<div id="play-song" class="btn-name">试着搜索一下吧~</div>
+			<div id="play-song" class="btn-name">Try searching~</div>
 			<div id="play-singer" class="btn-singer">...</div>
 		  </div>
 		  <div class="audio">
@@ -148,20 +149,20 @@
 
 	$('#comfirm').click(()=>{
 		if(localStorage.getItem("username") == "null") {
-			alert("请先登录")
+			alert("Please log in first")
 			return
 		}
 		let files = $('#choose-file')[0].files
 		if (files.length <= 0) {
-			console.log('请选择歌曲后再上传！')
+			console.log('Please select the song before uploading！')
 			return;
 		}
 		let data = new FormData();
  		data.append('avatar', files[0]);
 		console.log(files[0].type) //audio/mpeg
 		if(/audio\/\w+/.test(files[0].type) !== true) { //文件类型判断，支持audio类型文件
-			alert("只支持audio类型文件")
-			console.log("只支持audio类型文件")
+			alert("Only audio files are supported")
+			console.log("Only audio files are supported")
 			return
 		}
 		$.ajax({

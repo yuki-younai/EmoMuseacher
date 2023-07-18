@@ -21,8 +21,8 @@
 				</a>
 			</div>
 			<div class="avatar">
-				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
-				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+				<div class="top"upload onclick="showStar()"><p class="inupload">My Collection</p></div>
         		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
 				<img class="avatar-img" src="../images/avatar-01.jpg">
 			</div>
@@ -33,9 +33,9 @@
 		  <li class="star-li">
 			<div class="star-li-left">
 			  <img src="../images/china.png" class="star-img">
-			  <span class="star-name">歌曲名</span>
+			  <span class="star-name">Song name</span>
 			</div>
-			<span class="star-artist">歌手</span>
+			<span class="star-artist">Singer</span>
 		  </li>
 		</ul>
 	  </div>
@@ -48,14 +48,22 @@
 	<div class="input">
 		<input id="music" type="text" placeholder="Type...">
 		<input id="search-music" type="submit" value="Search">
+		<p>你好</p>
 	</div>
+
+    <!-- <div class="inputgpt">
+		<input id="music" type="text" placeholder="Type...">
+		<input id="search-music" type="submit" value="Search">
+	</div> -->
 
 	<div class="search">
 		<section>
 			<div class="music-header">
-				<div class="song-fixed"><span>音乐标题</span></div>
-				<div class="singer-fixed"><span>歌手</span></div>
-				<div class="time-fixed"><span>时长</span></div>
+				<div class="song-fixed"><span>music title
+				</span></div>
+				<div class="singer-fixed"><span>Singer</span></div>
+				<div class="time-fixed"><span>duration
+				</span></div>
 			</div>
 		</section>
 
@@ -71,7 +79,7 @@
 				<img id="play-image" src="/images/cover.jpg">
 			</div>
 			<div style="margin-left:6px">
-				<div id="play-song" class="btn-name">试着搜索一下吧~</div>
+				<div id="play-song" class="btn-name">Try searching~</div>
 				<div id="play-singer" class="btn-singer"></div>
 			</div>
 			<div class="audio" >
@@ -89,7 +97,7 @@
 				<img class="search-music-img" src="{{songImg}}" id={{idddd}} onclick="clicktolyric(this)">
 				<div class="music-detail music-detail-song" id={{iddddd}} onclick="clicktolyric(this)"><span>{{songName}}</span></div>
 				<div class="music-play-button" id={{id}} onclick="clicktoplay(this)"><img src="/images/play.svg"></div>
-				<div class="music-detail music-detail-singer"><span>{{artist}}</span></div>
+				<div class="music-detail music-detail-singer"><span>{ {artist}}</span></div>
 				<div class="music-detail music-time"><span>{{songTime}}</span></div>
 				<div class="music-detail music-time1" id={{iddd}} onclick="clicktosearchmv(this)"><img class="mv-svg" src="/images/mv.svg"></div>
 			</div>

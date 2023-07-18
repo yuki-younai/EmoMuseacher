@@ -23,8 +23,8 @@
 				</a>
 			</div>
 			<div class="avatar">
-                <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
-				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
+                <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+				<div class="uploadtop" onclick="showStar()"><p class="inupload">My Collection</p></div>
 				<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
 				<a href="../sign-in">
 					<img class="avatar-img"  src="../images/avatar-01.jpg">
@@ -37,9 +37,9 @@
 		  <li class="star-li">
 			<div class="star-li-left">
 			  <img src="../images/china.png" class="star-img">
-			  <span class="star-name">歌曲名</span>
+			  <span class="star-name">Song name</span>
 			</div>
-			<span class="star-artist">歌手</span>
+			<span class="star-artist">Singer</span>
 		  </li>
 		</ul>
 	  </div>
@@ -54,9 +54,9 @@
 			<div class="top-details">
 				<img class="top-img" id="im">
 				<div class="top-text"> 
-					<span class="top-text1">公开歌单</span>
-					<span class="top-text2" id="top-text">全球前50名</span>
-					<span class="top-text3">每日更新的全球当前最热播曲目。</span>
+					<span class="top-text1">Public song list</span>
+					<span class="top-text2" id="top-text">Top 50 in the world</span>
+					<span class="top-text3">A daily update of the world's current hottest tracks。</span>
 					<!-- <span class="top-text4">10000000次点赞</span> -->
 				</div>
 			</div>
@@ -86,7 +86,7 @@
 				<img id="play-image" src="/images/cover.jpg">
 			</div>
 			<div style="margin-left:6px">
-				<div id="play-song" class="btn-name">试着搜索一下吧~</div>
+				<div id="play-song" class="btn-name">Try searching~</div>
 				<div id="play-singer" class="btn-singer"></div>
 			</div>
 			<div class="audio" >
@@ -143,19 +143,19 @@
 
         if('<%=num%>' == '1') {
             document.getElementById("im").src = "../images/global.png"
-            document.getElementById("top-text").innerHTML = "热门前50名"
+            document.getElementById("top-text").innerHTML = "Hot top 50"
         }
         else if('<%=num%>' == '2') {
             document.getElementById("im").src = "../images/china.png"
-            document.getElementById("top-text").innerHTML = "内地前50名"
+            document.getElementById("top-text").innerHTML = "Top 50 in the mainland"
         }
         else if('<%=num%>' == '3') {
             document.getElementById("im").src = "../images/english.png"
-            document.getElementById("top-text").innerHTML = "欧美前50名"
+            document.getElementById("top-text").innerHTML = "Top 50 in Europe and America"
         }
         else if('<%=num%>' == '4') {
             document.getElementById("im").src = "../images/japan.png"
-            document.getElementById("top-text").innerHTML = "日本前50名"
+            document.getElementById("top-text").innerHTML = "Top 50 in Japan"
         }
 
 		

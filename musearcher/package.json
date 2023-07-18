@@ -25,8 +25,7 @@
     "multiparty": "^4.2.3",
     "mysql": "^2.18.1",
     "node-id3": "^0.2.3",
-    "search-util": "^0.1.4",
-    "wp_musicapi": "^1.5.2"
+    "search-util": "^0.1.4"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
