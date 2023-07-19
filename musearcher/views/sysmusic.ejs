@@ -41,7 +41,7 @@
 			<img class="round-image" src="../images/sing.png" alt="Artist Avatar">
 			<select id="artist-select">
 				<option value="">Select character </option>
-				<option value="sing1"> 1</option>
+				<option value="sing1"> Trump</option>
 				<option value="sing2"> 2</option>
 				<option value="sing3"> 3</option>
 			</select>
@@ -51,9 +51,9 @@
 			<img class="round-image" src="../images/song.jpg" alt="Artist Avatar">
 			<select id="song-select">
 				<option value="">Select song</option>
-				<option value="song1">1</option>
-				<option value="song2">2</option>
-				<option value="song3">3</option>
+				<option value="song1">big big world</option>
+				<option value="song2">cry on my shoulder</option>
+				<option value="song3">little star</option>
 			</select>
 		</div>
 
@@ -96,7 +96,7 @@
   selectedValue1 = event.target.value;
   if(selectedValue1=="sing1")
   {
-    image1.setAttribute('src', '../images/sing1.png');
+    image1.setAttribute('src', '../images/trump.png');
   }
   else if(selectedValue1=="sing2")
   {
@@ -115,13 +115,13 @@
   {
     if(selectedValue1=="sing1")
     {
-      sourceElement.setAttribute('src', "../audio/1.mp3");
+      sourceElement.setAttribute('src', "../audio/a1.wav");
       audioElement.load();
       playSongElement.textContent = 'New Song Name1';
     }
     else if(selectedValue1=="sing2")
     {
-      sourceElement.setAttribute('src', "../audio/2.mp3");
+      sourceElement.setAttribute('src', "../audio/a2.wav");
       audioElement.load();
       playSongElement.textContent = 'New Song Name2';
     }
@@ -137,7 +137,7 @@
   {
     if(selectedValue1=="sing1")
     {
-      sourceElement.setAttribute('src', "../audio/1.mp3");
+      sourceElement.setAttribute('src', "../audio/a2.wav");
       audioElement.load();
       playSongElement.textContent = 'New Song Name1';
     }
@@ -159,7 +159,7 @@
   {
     if(selectedValue1=="sing1")
     {
-      sourceElement.setAttribute('src', "../audio/1.mp3");
+      sourceElement.setAttribute('src', "../audio/a3.wav");
       audioElement.load();
       playSongElement.textContent = 'New Song Name1';
     }
