@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-top: 50px;
+  }
+  
+  .interests {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .interest {
+    margin: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .interest:hover {
+    transform: scale(1.1);
+  }
+  
+  .interest img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .interest p {
+    margin-top: 10px;
+  }
+  

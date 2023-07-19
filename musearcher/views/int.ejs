@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MuSearcher</title>
+	<link rel="stylesheet" href="../stylesheets/style.css">
+	<link rel="stylesheet" href="../stylesheets/search.css">
+	<link rel="stylesheet" href="../stylesheets/star.css">
+  <link rel="stylesheet" href="../stylesheets/select.css">
+	<!-- <link rel="stylesheet" href="../stylesheets/top.css"> -->
+  <style>
+    input[type="checkbox"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: none;
+      outline: none;
+    }
+  
+    input[type="checkbox"]::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #999;
+      border-radius: 3px;
+      background-color: #fff;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+  
+    input[type="checkbox"]:checked::before {
+      background-color: #007bff;
+      border-color: #007bff;
+      content: '\2713'; /* Unicode编码，表示勾号 */
+      text-align: center;
+      line-height: 16px;
+      color: #fff;
+    }
+    .int1 {
+      position: absolute;
+      top: 150px;
+      left: 50px;
+    }
+    .int2 {
+      position: absolute;
+      top: 500px;
+      left: 50px;
+    }
+    .int3 {
+      position: absolute;
+      top: 150px;
+      left: 450px;
+    }
+    .int4 {
+      position: absolute;
+      top: 500px;
+      left: 450px;
+    }
+    .int5 {
+      position: absolute;
+      top: 500px;
+      left: 850px;
+    }
+    .int6 {
+      position: absolute;
+      top: 150px;
+      left: 850px;
+    }
+    .int7 {
+      position: absolute;
+      top: 150px;
+      left: 1250px;
+    }
+    .int8 {
+      position: absolute;
+      top: 500px;
+      left:1250px;
+    }
+    .int9 {
+      position: absolute;
+      top: 720px;
+      left:1350px;
+    }
+    button {
+  background-color: #007bff; /* 设置背景颜色 */
+  color: #fff; /* 设置文本颜色 */
+  border: none; /* 移除边框 */
+  border-radius: 5px; /* 设置边框圆角 */
+  padding: 10px 20px; /* 设置内边距 */
+  width: 150px;
+  height: 50px;
+}
+button:hover {
+  background-color: #0056b3; /* 设置悬停时的背景颜色 */
+}
+
+button:active {
+  background-color: #003c80; /* 设置按下时的背景颜色 */
+}
+button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 设置阴影效果 */
+}
+</style>
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="logo">
+				<a class="logo-item" href="/">
+					<h2>MuSearcher</h2>
+				</a>
+			</div>
+			<div class="avatar">
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload voice</p></div>
+				<div class="top"upload onclick="showStar()"><p class="inupload">My Collection</p></div>
+        		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
+				<img class="avatar-img" src="../images/avatar-01.jpg">
+			</div>
+		</div>
+	</header>
+
+	<header1>
+		<div class="back" href="#">
+			<a href="/"><img src="../images/返回.svg"></a>
+		</div>
+	</header1>
+  <div class="int1">
+  <input type="checkbox" id="myCheckbox1">
+  <label for="myCheckbox1" class="checkbox-label">
+    <img id="play-image" src="../images/i1.png" alt="图片" style="width: 300px; height: 200px;">
+  </label>
+  </div>
+
+  <div class="int2">
+    <input type="checkbox" id="myCheckbox2">
+    <label for="myCheckbox2" class="checkbox-labe">
+      <img id="play-image" src="../images/i2.png" alt="图片" style="width: 300px; height: 200px;">
+    </label>
+    </div>
+
+    <div class="int3">
+      <input type="checkbox" id="myCheckbox3">
+      <label for="myCheckbox3" class="checkbox-label">
+        <img id="play-image" src="../images/i3.png" alt="图片" style="width: 300px; height: 200px;">
+      </label>
+      </div>
+
+    <div class="int4">
+        <input type="checkbox" id="myCheckbox4">
+        <label for="myCheckbox4" class="checkbox-label">
+          <img id="play-image" src="../images/i4.png" alt="图片" style="width: 300px; height: 200px;">
+        </label>
+    </div>  
+
+    <div class="int5">
+      <input type="checkbox" id="myCheckbox5">
+      <label for="myCheckbox5" class="checkbox-label">
+        <img id="play-image" src="../images/i5.png" alt="图片" style="width: 300px; height: 200px;">
+      </label>
+      </div>
+    <div class="int6">
+        <input type="checkbox" id="myCheckbox6">
+        <label for="myCheckbox6" class="checkbox-label">
+          <img id="play-image" src="../images/i6.png" alt="图片" style="width: 300px; height: 200px;">
+        </label>
+    </div>    
+
+    <div class="int7">
+      <input type="checkbox" id="myCheckbox7">
+      <label for="myCheckbox7" class="checkbox-label">
+        <img id="play-image" src="../images/i7.png" alt="图片" style="width: 300px; height: 200px;">
+      </label>
+  </div>   
+  
+  <div class="int8">
+    <input type="checkbox" id="myCheckbox8">
+    <label for="myCheckbox8" class="checkbox-label">
+      <img id="play-image" src="../images/i8.png" alt="图片" style="width: 300px; height: 200px;">
+    </label>
+</div>    
+
+<button class="int9" onclick="jumpto()">Start</button>
+  <script>
+    function jumpto() {
+        document.location.href = "/";
+    }
+  </script>
+
+</body>
+
+</html>

@@ -22,6 +22,7 @@
       </div>
       
       <div class="avatar">
+        <!-- <div class="uploadtop" onclick="jumptoint()"><p class="inupload">int</p></div> -->
         <div class="uploadtop" onclick="jumptosysmusic()"><p class="inupload">Synthetic music</p></div>
         <div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
         <div class="uploadtop" onclick="showStar()"><p class="inupload">My Collection</p></div>
@@ -338,6 +339,9 @@ publishBtn.addEventListener('click', function(event) {
     }
     function jumptosysmusic() {
         document.location.href = "sysmusic";
+    }
+    function jumptoint() {
+        document.location.href = "int";
     }
 
     $('#search-music').click(() => {
