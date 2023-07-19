@@ -22,6 +22,7 @@ var commentRouter = require('./routes/comment');
 var starRouter = require('./routes/star')
 var gptRouter = require('./routes/gpt')
 var sysRouter = require('./routes/sysmusic')
+var voiceRouter = require('./routes/voice')
 
 var app = express();
 
@@ -58,6 +59,7 @@ app.use("/comment", commentRouter);
 app.use("/star", starRouter);
 app.use("/gpt", gptRouter);
 app.use("/sysmusic",sysRouter);
+app.use("/voice",voiceRouter);
 
 
 //中间件按顺序依次匹配，前面的路径没有匹配上后到下一步

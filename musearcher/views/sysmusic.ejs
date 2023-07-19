@@ -22,7 +22,7 @@
 				</a>
 			</div>
 			<div class="avatar">
-				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload songs</p></div>
+				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">Upload voice</p></div>
 				<div class="top"upload onclick="showStar()"><p class="inupload">My Collection</p></div>
         		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
 				<img class="avatar-img" src="../images/avatar-01.jpg">
@@ -96,7 +96,7 @@
   selectedValue1 = event.target.value;
   if(selectedValue1=="sing1")
   {
-    image1.setAttribute('src', '../images/trump.png');
+    image1.setAttribute('src', '../images/trump.jpg');
   }
   else if(selectedValue1=="sing2")
   {
@@ -117,21 +117,19 @@
     {
       sourceElement.setAttribute('src', "../audio/a1.wav");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name1';
     }
     else if(selectedValue1=="sing2")
     {
       sourceElement.setAttribute('src', "../audio/a2.wav");
-      audioElement.load();
-      playSongElement.textContent = 'New Song Name2';
+      audioElement.load();  
     }
     else
     {
       sourceElement.setAttribute('src', "../audio/3.mp3");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name3';
     }
-    image2.setAttribute('src', '../images/sing1.png');
+    image2.setAttribute('src', '../images/t1.jpg');
+    playSongElement.textContent = 'Big Big world';
   }
   else if(selectedValue2=="song2")
   {
@@ -139,21 +137,20 @@
     {
       sourceElement.setAttribute('src', "../audio/a2.wav");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name1';
+      
     }
     else if(selectedValue1=="sing2")
     {
       sourceElement.setAttribute('src', "../audio/2.mp3");
-      playSongElement.textContent = 'New Song Name2';
       audioElement.load();
     }
     else
     {
       sourceElement.setAttribute('src', "../audio/3.mp3");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name3';
     }
-    image2.setAttribute('src', '../images/wite.png');
+    image2.setAttribute('src', '../images/t2.jpg');
+    playSongElement.textContent = 'Cry on my shoulder';
   }
   else
   {
@@ -161,22 +158,19 @@
     {
       sourceElement.setAttribute('src', "../audio/a3.wav");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name1';
     }
     else if(selectedValue1=="sing2")
     {
       sourceElement.setAttribute('src', "../audio/2.mp3");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name2';
     }
     else
     {
       sourceElement.setAttribute('src', "../audio/3.mp3");
       audioElement.load();
-      playSongElement.textContent = 'New Song Name3';
     }
-    image2.setAttribute('src', '../images/sing3.png');
-    
+    image2.setAttribute('src', '../images/t3.jpg');
+    playSongElement.textContent = 'Little little star';
   }
    console.log(selectedValue1);
   });
@@ -184,7 +178,7 @@
 
 
   function jumptoupload() {
-        document.location.href = "upload";
+        document.location.href = "voice";
     }
 
   </script>
