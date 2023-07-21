@@ -1,12 +1,12 @@
 .wrapper {
     min-width: 400px;
-    max-width: 800px;
-    position: absolute;
+    max-width: 400px;
+    position: relative;
     margin: auto;
     display: flex;
     justify-content: flex-end;
-    bottom: 600px;
-    right: 50px;
+    bottom: 0px;
+    left:500px;
   }
 
 
@@ -58,11 +58,11 @@
   .list1 {
     min-width: 400px;
     max-width: 400px;
-    position: absolute;
+    position: relative;
     margin: auto;
     display: flex;
-    bottom: 240px;
-    right: 50px;
+    bottom: 10px;
+    left: 500px;
     /* background: url(../images/wite.png) no-repeat;  */
     background: rgba(229, 232, 237, 0.8);
     background-repeat: no-repeat;
