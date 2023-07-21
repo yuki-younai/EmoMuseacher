@@ -1,252 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+var express = require("express");
+var router = express.Router();
+const { Collection } = require("mongoose");
+var mugu_search = require("./search/migu_search");
+var kuwo_search = require("./search/kuwo_search");
+var kugou_search = require("./search/kugou_search");
+var qq_search = require("./search/qq_search");
+var search = require("./search/search_all");
+var memcache = require("memory-cache");
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MuSearcher</title>
-	<link rel="stylesheet" href="../stylesheets/style.css">
-	<link rel="stylesheet" href="../stylesheets/search.css">
-	<link rel="stylesheet" href="../stylesheets/star.css">
-	<!-- <link rel="stylesheet" href="../stylesheets/top.css"> -->
-</head>
+var song;
 
-<body>
-	<header>
-		<div class="container">
-			<div class="logo">
-				<a class="logo-item" href="/">
-					<h2>MuSearcher</h2>
-				</a>
-			</div>
-			<div class="avatar">
-				<div class="uploadtop" onclick="jumptoupload()"><p class="inupload">上传歌曲</p></div>
-				<div class="uploadtop" onclick="showStar()"><p class="inupload">我的收藏</p></div>
-        		<div class="uploadtop-name"><p class="inupload-name" id="username"></p></div>
-				<img class="avatar-img" src="../images/avatar-01.jpg">
-			</div>
-		</div>
-	</header>
-	<div class="star" id="star">
-		<ul class="star-ul">
-		  <li class="star-li">
-			<div class="star-li-left">
-			  <img src="../images/china.png" class="star-img">
-			  <span class="star-name">歌曲名</span>
-			</div>
-			<span class="star-artist">歌手</span>
-		  </li>
-		</ul>
-	  </div>
-	<header1>
-		<div class="back" href="#">
-			<a href="/"><img src="../images/返回.svg"></a>
-		</div>
-	</header1>
+let cache = (req, res, next) => {
+  //memory-cache中间件
+  let searchMusic = req.body.searchMusic;
+  let searchData_cache = memcache.get(searchMusic);
+  if (searchData_cache) {
+    console.log("search: searchMusic:" + searchMusic + " is in cache");
+    res.json(searchData_cache);
+    return;
+  } else {
+    //复制一个 json函数一个用来取值一个用来返回值
+    //重写JSON方法，在路由函数调用JSON方法时获取到需要缓存的数据,然后通过复制的jsonResponse进行返回
+    res.jsonResponse = res.json;
+    res.json = (value) => {
+      res.jsonResponse(value);
+      memcache.put(searchMusic, value, 100 * 1000); //设置100秒缓存
+      console.log(
+        "search: put searchMusic:" + searchMusic + " to memory cache"
+      );
+    };
+    next();
+  }
+};
 
-	<div class="input">
-		<input id="music" type="text" placeholder="Type...">
-		<input id="search-music" type="submit" value="Search">
-	</div>
+/* GET search page. */
+router.get("/", function (req, res, next) {
+  res.render("search"); //用某对象的某个变量值一同来渲染一个特定的模板，然后将结果作为响应发送。
+});
 
-	<div class="search">
-		<section>
-			<div class="music-header">
-				<div class="song-fixed"><span>音乐标题</span></div>
-				<div class="singer-fixed"><span>歌手</span></div>
-				<div class="time-fixed"><span>时长</span></div>
-			</div>
-		</section>
+router.post("/", cache, function (req, res, next) {
+  let searchMusic = req.body.searchMusic;
+  console.log(searchMusic);
+  search(searchMusic).then((reqsong) => {
+    song = reqsong;
+    console.log(song);
+    res.json(song); //服务器返回song数据
+  });
+});
 
-		<div class="search-list" id="search-list">
-
-		</div>
-
-
-	</div>
-	<footer>
-		<div class="btn-audio">
-			<div class="btn-cover">
-				<img id="play-image" src="/images/cover.jpg">
-			</div>
-			<div style="margin-left:6px">
-				<div id="play-song" class="btn-name">试着搜索一下吧~</div>
-				<div id="play-singer" class="btn-singer"></div>
-			</div>
-			<div class="audio" >
-				<audio controls="controls" id="audio">
-					<source id="play-source" src="" type="audio/mp3" />
-				</audio>
-			</div>
-			<div class="footer-star" onclick="clicktostar()"><img class="star-svg" src="/images/star.svg"></div>
-		</div>
-	</footer>
-
-	<script type="text/template" id="tpl">
-		<section class="search-section">
-			<div class="search-item">
-				<img class="search-music-img" src="{{songImg}}" id={{idddd}} onclick="clicktolyric(this)">
-				<div class="music-detail music-detail-song" id={{iddddd}} onclick="clicktolyric(this)"><span>{{songName}}</span></div>
-				<div class="music-play-button" id={{id}} onclick="clicktoplay(this)"><img src="/images/play.svg"></div>
-				<div class="music-detail music-detail-singer"><span>{{artist}}</span></div>
-				<div class="music-detail music-time"><span>{{songTime}}</span></div>
-				<div class="music-detail music-time1" id={{iddd}} onclick="clicktosearchmv(this)"><img class="mv-svg" src="/images/mv.svg"></div>
-			</div>
-		</section>
-	</script>
-	<script type="text/template" id="star-element">
-		<li class="star-li" id={{id}} onclick="clicktoplay_star(this)">
-		  <div class="star-li-left">
-			<img src="{{img}}" class="star-img">
-			<span class="star-name">{{song}}</span>
-		  </div>
-		  <span class="star-artist">{{artist}}</span>
-		</li>
-	  </script>
-
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../javascripts/alluse.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-
-		let music_list = [];
-		let buttons = [];
-		let play_image = $("#play_image")
-		let play_song = $("#play_song")
-		let play_singer = $("#play_singer")
-		let play_source = $("#play_source")
-		let music = $("#music");
-		setHeaderUsername()
-		function jumptoupload() {
-			document.location.href = "upload";
-		}
-		
-		function search(music) {
-			if (music.length == 0) {
-				return;
-			}
-
-			let data = {
-				"searchMusic": music
-			}
-
-			$.ajax({  //链接路由
-				type: "POST",
-				url: addr+"/search",
-				data: data,  //要搜索的music
-
-				success: res => {
-					console.log(res); // 服务器返回的song数据
-					music_list = res;
-					let tpl = document.getElementById("tpl").innerHTML; //每条搜索结果的html
-					let num = 0;
-					let songhtml = res.reduce((pre, cur) => {
-						if (cur.url == undefined) {
-							num++;
-							return pre;
-						}
-						console.log(cur.songTimeMinutes )
-						let songTime = "..."
-						if(cur.songTimeMinutes) songTime = cur.songTimeMinutes
-						let result = tpl
-							.replace("{{iddddd}}", num)
-							.replace("{{idddd}}", num)
-							.replace("{{iddd}}", num)
-							.replace("{{id}}", num++)
-							.replace("{{songName}}", cur.name)
-							.replace("{{songImg}}", cur.pic)
-							.replace("{{artist}}", cur.artist)
-							.replace("{{songTime}}", songTime)
-						return pre + result;
-					}, "");
-					document.querySelector(".search-list").innerHTML = songhtml;
-					localStorage.setItem("searchthing", data.searchMusic);
-					
-				},
-
-				error: err => {
-					console.log(err);
-				}
-
-			})
-		}
-
-		var storageMusic = localStorage.getItem("searchthing")
-		var old_playInfo = localStorage.getItem("play-info")
-		
-		if (storageMusic != "undefined") {
-			search(storageMusic);
-			music.val(storageMusic);
-			// localStorage.setItem("searchthing", undefined); //不需要重置
-		}
-
-		if(old_playInfo != "undefined") {
-			let oldplayInfo = JSON.parse(old_playInfo);
-			play(oldplayInfo);
-		}
-
-		
-
-		$('#search-music').click(() => {
-			let searchMusic = music.val();
-			search(searchMusic);
-		});
-
-		// $(".search-list").on("mouseenter", () => {
-		// 	$(".music-play-button").click( () => { //JavaScript 和 jQuery 无法获取动态添加的元素节点。
-		// 		console.log();
-		// 		// search-section
-		// 		let id = $(this).attr("id");
-				
-		// 		console.log(id);
-		// 		// play_image.src = music_list[i].pic;
-		// 		// play_singer.val(music_list[i].artist);
-		// 		// play_song.val(music_list[i].name);
-		// 		// play_source.src = music_list[i].url;
-		// 	});
-		// })
-		
-
-		function clicktoplay(obj) {
-			console.log(obj.id);
-			let id = obj.id;
-			let i = Number(id);
-			console.log(music_list[i].pic);
-
-			document.getElementById("play-image").setAttribute("src", music_list[i].pic);
-			document.getElementById("play-source").setAttribute("src", music_list[i].url + '?' + new Date().getTime());
-			document.getElementById("play-singer").innerHTML = music_list[i].artist;
-			document.getElementById("play-song").innerHTML = music_list[i].name;
-			document.getElementById("audio").load();
-
-			let playInfo = {
-				"play_image": music_list[i].pic,
-				"play_source": music_list[i].url,
-				"play_singer": music_list[i].artist,
-				"play_song": music_list[i].name,
-				"play_lyric": music_list[i].lyric
-			};
-
-			
-			localStorage.setItem("play-info", JSON.stringify(playInfo)); //存在localstorage中在页面刷新后也能使用
-
-			updata_listen_info(playInfo);
-					
-		}
-
-		function clicktosearchmv(obj) {
-            let id = obj.id;
-			let i = Number(id);
-            localStorage.setItem("mvSearch", music_list[i].name + "_" + music_list[i].artist)
-            document.location.href = 'mvlist'
-        }
-
-		function clicktolyric(obj) {
-			clicktoplay(obj)
-			document.location.href = 'lyric'
-		}
-	</script>
-
-</body>
-
-</html>
+module.exports = router;
