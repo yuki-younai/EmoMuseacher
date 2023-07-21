@@ -5,7 +5,7 @@ module.exports = {
     host: "localhost", // 主机名
     port: 3306, // MySQL 默认端口为 3306
     user: "root", // 使用 root 用户登入 MySQL
-    password: "todo", // MySQL 密码
+    password: "admin123", // adminMySQL 密码
     database: "musearch", // 使用数据库
     connectionLimit: 60,
   },

@@ -109,6 +109,7 @@
 	setHeaderUsername()
 
 	$('#search-music').click(() => {
+		alert("the music exist");
 		let searchMusic = $("#music").val();
 		let data = {
 			"search": searchMusic
@@ -131,6 +132,7 @@
 	});
 
 	$('#comfirm').click(()=>{
+		alert("Sent successfully,please wait for training.")
 		if(localStorage.getItem("username") == "null") {
 			alert("Please log in first")
 			return
